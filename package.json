@@ -1,6 +1,6 @@
 {
   "name": "ourfetch",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A more functional and simple fetch api",
   "main": "dist/index.js",
   "files": [
@@ -17,6 +17,7 @@
   ],
   "author": "lucklin",
   "email": "502763576@qq.com",
+  "homepage": "https://github.com/LuckLin520/ourfetch#readme",
   "license": "MIT",
   "devDependencies": {
     "rollup": "^3.2.5",
