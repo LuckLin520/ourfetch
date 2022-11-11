@@ -1,19 +1,22 @@
 {
   "name": "ourfetch",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A more functional and simple fetch api",
   "main": "dist/index.js",
   "files": [
     "dist"
   ],
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs"
+    "build:types": "tsc -b ./tsconfig.types.json",
+    "build": "npm run build:types && rollup -c --bundleConfigAsCjs"
   },
   "keywords": [
     "fetch",
     "ourfetch"
   ],
   "author": "lucklin",
+  "email": "502763576@qq.com",
   "license": "MIT",
   "devDependencies": {
     "rollup": "^3.2.5",
