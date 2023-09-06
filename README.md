@@ -1,74 +1,73 @@
 ![banner.png](https://github.com/LuckLin520/ourfetch/blob/master/banner.jpg)
-# Installing
-```
-npm install ourfetch
-```
-# Using demo
+
+# Example
+
 ```typescript
 // http.ts
-import ourfetch from 'ourfetch'
-import { FetchContext, FetchOptions, FetchRequest } from 'ourfetch/dist/types'
-import { downloadBlob } from './util'
+import ourfetch from "ourfetch";
+import { FetchContext, FetchOptions, FetchRequest } from "ourfetch/dist/types";
 
-interface ResponseSchema<T = any> {
-  data: T
-  msg: string
-  code: number
-  status: boolean
-}
 const defaultOptions: FetchOptions = {
-  baseURL: 'http://127.0.0.1:3001',
-  // timeout: 4000,
-  // headers: {
-  //   'Content-Type': 'application/x-www-form-urlencoded'
-  // },
+  baseURL: "http://127.0.0.1:3001",
   onRequest(ctx) {
-    console.log('[fetch onRequest]', ctx)
-    ctx.options.headers = {
-      ...ctx.options.headers,
-      token: 'token123'
-    }
+    console.log("[fetch onRequest]", ctx);
   },
   onResponse(ctx) {
-    console.log('[fetch onResponse]', ctx)
-    if (ctx.response._data instanceof Blob) {
-      const { _data, headers } = ctx.response
-      const filename = decodeURIComponent(headers.get('content-disposition')!.split('filename=')[1])
-      downloadBlob(_data, filename)
-    }
-    ctx.response = ctx.response._data // finally return ctx.response
+    console.log("[fetch onResponse]", ctx);
   },
   onResponseError(ctx: FetchContext) {
-    console.log('[fetch onResponseError]', ctx)
+    console.log("[fetch onResponseError]", ctx);
   },
   onRequestError(ctx: FetchContext) {
-    console.log('[fetch onRequestError]', ctx)
-  }
-}
+    console.log("[fetch onRequestError]", ctx);
+  },
+};
 
-const myFetch = ourfetch.create(defaultOptions)
+const myFetch = ourfetch.create(defaultOptions);
 
-export const http = <T>(url: FetchRequest, options?: FetchOptions<ResponseSchema<T>>): Promise<ResponseSchema<T>> => {
-  return myFetch(url, options)
-}
-
-export const get = <T>(url: FetchRequest, options?: FetchOptions<ResponseSchema<T>>): Promise<ResponseSchema<T>> => {
-  return myFetch.get(url, options)
-}
-export const post = <T>(url: FetchRequest, options?: FetchOptions<ResponseSchema<T>>): Promise<ResponseSchema<T>> => {
-  return myFetch.post(url, options)
-}
-// ...
-
-// Page.tsx
-type TestData = { test: string }
-const params = { www: 123, aaa: 555 }
-const res = await get<TestData>('/test', { query: params }) // The res is ResponseSchema<TestData>
-await http<TestData>('/test', { query: params })
-await post<TestData>('/test', { body: params })
-await get('/download', { responseType: 'blob' })
+export default myFetch;
 ```
+
+### Creating an instance
+
+You can create a new instance of axios with a custom config.
+
+```js
+const instance = ourfetch.create({
+  baseURL: "https://some-domain.com/api/",
+  timeout: 1000,
+  headers: { "X-Custom-Header": "foobar" },
+});
+```
+
+# Installing
+
+Using npm:
+
+```bash
+$ npm install axios
+```
+
+Using bower:
+
+```bash
+$ bower install axios
+```
+
+Using yarn:
+
+```bash
+$ yarn add axios
+```
+
+Using pnpm:
+
+```bash
+$ pnpm add axios
+```
+
 # Request method aliases
+
 ourfetch(url[, config)
 
 ourfetch.get(url[, config])
