@@ -28,9 +28,10 @@ export interface FetchOptions<T = any> extends Omit<RequestInit, 'body'> {
   query?: Record<string, any>
   body?: RequestInit['body'] | Record<string, any>
   responseType?: ResponseType
-  response?: boolean
+  onlyData?: boolean
   timeout?: number
   controller?: AbortController
+  extra?: Record<string, any>,
   onRequest?(ctx: FetchContext): Promise<void> | void
   onRequestError?(ctx: FetchContext & { error: FetchError }): Promise<void> | void
   onResponse?(ctx: FetchContext & { response: FetchResponse<T> }): Promise<void> | void

@@ -80,7 +80,7 @@ const createFetch = (globalOptions: CreateFetchOptions) => {
       await ctx.options.onResponse(ctx as any)
     }
 
-    return ctx.response
+    return ctx.options.onlyData ? ctx.response._data : ctx.response
   }
 
   const ourFetch = ((request, opts) => raw(request, opts)) as OurFetch
