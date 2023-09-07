@@ -1,13 +1,25 @@
 ![banner.png](https://github.com/LuckLin520/ourfetch/blob/master/banner.jpg)
 
+- 基于 HTML5 fetch 的二次封装
+- 支持 Promise
+- 支持自定义请求头
+- 支持自定义请求参数
+- 支持自定义响应结果
+- 支持自定义拦截器
+- 支持自定义错误处理
+- 支持自定义超时
+- 支持自定义请求上下文
+
+🌟👉：[https://github.com/LuckLin520/ourfetch](https://github.com/LuckLin520/ourfetch)
+
 # Example
 
 ```typescript
 // http.ts
 import ourfetch from "ourfetch";
-import { FetchContext, FetchOptions, FetchRequest } from "ourfetch/dist/types";
+import { FetchOptions } from "ourfetch/dist/types";
 
-const defaultOptions: FetchOptions = {
+const defaultOptions: FetchOptions<CustomResult> = {
   baseURL: "http://127.0.0.1:3001",
   onRequest(ctx) {
     console.log("[fetch onRequest]", ctx);
@@ -15,10 +27,10 @@ const defaultOptions: FetchOptions = {
   onResponse(ctx) {
     console.log("[fetch onResponse]", ctx);
   },
-  onResponseError(ctx: FetchContext) {
+  onResponseError(ctx) {
     console.log("[fetch onResponseError]", ctx);
   },
-  onRequestError(ctx: FetchContext) {
+  onRequestError(ctx) {
     console.log("[fetch onRequestError]", ctx);
   },
 };
@@ -32,7 +44,7 @@ export default myFetch;
 
 You can create a new instance of axios with a custom config.
 
-```js
+```typescript
 const instance = ourfetch.create({
   baseURL: "https://some-domain.com/api/",
   timeout: 1000,
@@ -66,7 +78,9 @@ Using pnpm:
 $ pnpm add ourfetch
 ```
 
-# Global context
+# Types
+
+### Request Context
 
 ```typescript
 export interface FetchContext<T = any> {
@@ -74,6 +88,31 @@ export interface FetchContext<T = any> {
   options: FetchOptions<T>;
   response?: FetchResponse<T>;
   error?: FetchError;
+}
+```
+
+### Request Options
+
+```typescript
+export interface FetchOptions<T = any> extends Omit<RequestInit, "body"> {
+  baseURL?: string;
+  query?: Record<string, any>;
+  body?: RequestInit["body"] | Record<string, any>;
+  responseType?: ResponseType;
+  onlyData?: boolean;
+  timeout?: number;
+  controller?: AbortController;
+  extra?: Record<string, any>;
+  onRequest?(ctx: FetchContext): Promise<void> | void;
+  onRequestError?(
+    ctx: FetchContext & { error: FetchError }
+  ): Promise<void> | void;
+  onResponse?(
+    ctx: FetchContext & { response: FetchResponse<T> }
+  ): Promise<void> | void;
+  onResponseError?(
+    ctx: FetchContext & { response: FetchResponse<T> }
+  ): Promise<void> | void;
 }
 ```
 
