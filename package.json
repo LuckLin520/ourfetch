@@ -1,6 +1,6 @@
 {
   "name": "ourfetch",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A more functional and simple fetch api",
   "main": "dist/index.js",
   "files": [

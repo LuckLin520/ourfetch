@@ -45,26 +45,39 @@ const instance = ourfetch.create({
 Using npm:
 
 ```bash
-$ npm install axios
+$ npm install ourfetch
 ```
 
 Using bower:
 
 ```bash
-$ bower install axios
+$ bower install ourfetch
 ```
 
 Using yarn:
 
 ```bash
-$ yarn add axios
+$ yarn add ourfetch
 ```
 
 Using pnpm:
 
 ```bash
-$ pnpm add axios
+$ pnpm add ourfetch
 ```
+
+# Global context
+
+```typescript
+export interface FetchContext<T = any> {
+  request: FetchRequest;
+  options: FetchOptions<T>;
+  response?: FetchResponse<T>;
+  error?: FetchError;
+}
+```
+
+For more information, see the corresponding `types.ts` file.
 
 # Request method aliases
 
