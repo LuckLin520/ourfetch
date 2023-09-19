@@ -15,7 +15,7 @@ export const mergeUrl = (path: string, url: string) => {
 }
 export const mergePrams = (url: string, query: Record<string, any>) => {
   const { search } = new URL(url)
-  const querySearch = Object.keys(query).reduce((o, n) => `${o}${!o && search ? '&' : '?'}${n}=${query[n]}`, '')
+  const querySearch = Object.keys(query).reduce((o, n) => `${o}${o || search ? '&' : '?'}${n}=${query[n]}`, '')
   return url.concat(querySearch)
 }
 export const isString = (val: any) => (Object.prototype.toString.call(val) === '[object String]' ? true : false)

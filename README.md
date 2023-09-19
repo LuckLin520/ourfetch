@@ -1,14 +1,13 @@
 ![banner.png](https://github.com/LuckLin520/ourfetch/blob/master/banner.jpg)
 
 - 基于 HTML5 fetch 的二次封装
+- 零 Dependencies 生产体积 3.4kb
 - 支持 Promise
-- 支持自定义请求头
-- 支持自定义请求参数
-- 支持自定义响应结果
-- 支持自定义拦截器
-- 支持自定义错误处理
-- 支持自定义超时
-- 支持自定义请求上下文
+- 支持 Typescript
+- 支持 Request/Response 拦截
+- 支持 RequestError/ResponseError 处理
+- 支持自定义 Timeout 处理
+- 支持灵活的可自定义 Context 对象
 
 🌟👉：[https://github.com/LuckLin520/ourfetch](https://github.com/LuckLin520/ourfetch)
 
@@ -49,6 +48,7 @@ const instance = ourfetch.create({
   baseURL: "https://some-domain.com/api/",
   timeout: 1000,
   headers: { "X-Custom-Header": "foobar" },
+  //...
 });
 ```
 
