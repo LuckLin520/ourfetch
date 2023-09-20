@@ -31,14 +31,14 @@ export interface FetchOptions<T = any> extends Omit<RequestInit, 'body'> {
     timeout?: number;
     controller?: AbortController;
     extra?: Record<string, any>;
-    onRequest?(ctx: FetchContext): Promise<void> | void;
-    onRequestError?(ctx: FetchContext & {
+    onRequest?(ctx: FetchContext<T>): Promise<void> | void;
+    onRequestError?(ctx: FetchContext<T> & {
         error: FetchError;
     }): Promise<void> | void;
-    onResponse?(ctx: FetchContext & {
+    onResponse?(ctx: FetchContext<T> & {
         response: FetchResponse<T>;
     }): Promise<void> | void;
-    onResponseError?(ctx: FetchContext & {
+    onResponseError?(ctx: FetchContext<T> & {
         response: FetchResponse<T>;
     }): Promise<void> | void;
 }
