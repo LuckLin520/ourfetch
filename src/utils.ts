@@ -13,10 +13,16 @@ export const mergeUrl = (path: string, url: string) => {
   const { origin, search } = new URL(url)
   return origin.concat(path).concat(search)
 }
-export const mergePrams = (url: string, query: Record<string, any>) => {
-  const { search } = new URL(url)
-  const querySearch = Object.keys(query).reduce((o, n) => `${o}${o || search ? '&' : '?'}${n}=${query[n]}`, '')
-  return url.concat(querySearch)
+export const mergeParams = (url: string, query: Record<string, any>) => {
+  const urlObject = new URL(url);
+  const searchParams = new URLSearchParams(urlObject.search);
+  for (const key in query) {
+    if (query[key] !== undefined) {
+      searchParams.set(key, query[key]);
+    }
+  }
+  urlObject.search = searchParams.toString();
+  return urlObject.toString();
 }
 export const isString = (val: any) => (Object.prototype.toString.call(val) === '[object String]' ? true : false)
 export const isNumber = (val: any) => (Object.prototype.toString.call(val) === '[object Number]' ? true : false)

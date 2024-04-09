@@ -1,5 +1,5 @@
 import type { CreateFetchOptions, FetchContext, OurFetch, Raw } from './types'
-import { FetchError, getResponseTypeAbbr, isNumber, isObject, isPayloadMethod, isString, mergePrams, mergeUrl } from './utils'
+import { FetchError, getResponseTypeAbbr, isNumber, isObject, isPayloadMethod, isString, mergeParams, mergeUrl } from './utils'
 
 const createFetch = (globalOptions: CreateFetchOptions) => {
   const { fetch, Headers, defaults } = globalOptions
@@ -18,7 +18,7 @@ const createFetch = (globalOptions: CreateFetchOptions) => {
     if (typeof ctx.request === 'string') {
       try {
         ctx.request = mergeUrl(ctx.request, ctx.options.baseURL || '')
-        ctx.request = mergePrams(ctx.request, ctx.options.query || {})
+        ctx.request = mergeParams(ctx.request, ctx.options.query || {})
 
         if (ctx.options.body && isPayloadMethod(ctx.options.method)) {
           ctx.options.headers = new Headers(ctx.options.headers)

@@ -3,7 +3,7 @@ export declare function isEmptyURL(url: string): boolean;
 export declare const payloadMethod: Set<string>;
 export declare const isPayloadMethod: (method?: string) => boolean;
 export declare const mergeUrl: (path: string, url: string) => string;
-export declare const mergePrams: (url: string, query: Record<string, any>) => string;
+export declare const mergeParams: (url: string, query: Record<string, any>) => string;
 export declare const isString: (val: any) => boolean;
 export declare const isNumber: (val: any) => boolean;
 export declare const isObject: (val: any) => boolean;
