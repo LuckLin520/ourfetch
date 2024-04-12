@@ -20,15 +20,15 @@ const createFetch = (globalOptions: CreateFetchOptions) => {
         ctx.request = mergeUrl(ctx.request, ctx.options.baseURL || '')
         ctx.request = mergeParams(ctx.request, ctx.options.query || {})
 
-        if (ctx.options.body && isPayloadMethod(ctx.options.method)) {
-          ctx.options.headers = new Headers(ctx.options.headers)
+        ctx.options.headers = new Headers(ctx.options.headers)
+        if (!ctx.options.headers.has('accept')) {
+          ctx.options.headers.set('accept', 'application/json')
+        }
+        if (!(ctx.options.body instanceof FormData) && ctx.options.body && isPayloadMethod(ctx.options.method)) {
           if (!ctx.options.headers.has('content-type')) {
             ctx.options.headers.set('content-type', 'application/json')
           } else if (ctx.options.headers.get('content-type')?.includes('www-form-urlencoded')) {
             ctx.options.body = isObject(ctx.options.body) ? new URLSearchParams(ctx.options.body as any).toString() : ctx.options.body
-          }
-          if (!ctx.options.headers.has('accept')) {
-            ctx.options.headers.set('accept', 'application/json')
           }
           ctx.options.body = isString(ctx.options.body) ? ctx.options.body : JSON.stringify(ctx.options.body)
         }
