@@ -10,8 +10,9 @@ export const isPayloadMethod = (method = 'GET') => {
 export const mergeUrl = (path: string, url: string) => {
   if (isEmptyURL(path) || isEmptyURL(url)) return path || url
   path = path.startsWith('/') ? path : `/${path}`
-  const { origin, search } = new URL(url)
-  return origin.concat(path).concat(search)
+  const { protocol, hostname, pathname, search } = new URL(url)
+  const main = `${hostname}/${pathname + path}${search}`.replace(/\/+/, '/')
+  return `${protocol}//${main}`
 }
 export const mergeParams = (url: string, query: Record<string, any>) => {
   const urlObject = new URL(url);
